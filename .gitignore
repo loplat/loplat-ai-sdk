@@ -21,3 +21,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+https://cdn.jsdelivr.net/gh/nani6765/toggle-chatbot@main/dist/chat-widget.iife.js?timestamp=202501171454
+https://cdn.jsdelivr.net/gh/nani6765/toggle-chatbot@main/dist/chat-widget.css?timestamp=202501171454
