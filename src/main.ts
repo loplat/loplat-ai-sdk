@@ -13,6 +13,7 @@ import './style.css';
 
     loplatNewAiBtn.addEventListener('click', () => {
       loplatNewAiPopup.style.display = !isOpen ? 'block' : 'none';
+      window.dispatchEvent(new Event('popstate'));
       isOpen = !isOpen;
     });
 
