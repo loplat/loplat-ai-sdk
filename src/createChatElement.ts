@@ -6,7 +6,7 @@ export const createChatBtn = (id = 'loplat-new-ai-btn') => {
 
 export const createChatWrapper = (
   id = 'loplat-new-ai-popup',
-  iframeURL = 'https://loplat-chatbot-320524274389.asia-northeast3.run.app/'
+  iframeURL = 'http://localhost:5000/'
 ) => {
   const wrapper = document.createElement('div');
   wrapper.id = id;
