@@ -47,12 +47,15 @@ export const linkMessageHandler = (e: MessageEvent) => {
     return; // data가 객체가 아닌 경우 처리하지 않음
   }
 
-  const isHighlightMessage = 'type' in data && data.type === 'highlight';
+  const isHighlightMessage = 'type' in data && data.type === 'HIGHLIGHT';
   if (!isHighlightMessage) {
     return;
   }
 
-  window.ChatWidget.highlightText(`${e.data.value}`);
+  window.ChatWidget.highlightText({
+    keyword: `${e.data.value.keyword}`,
+    nth: Number(e.data.value.nth ?? 1),
+  });
 };
 
 export const userClickHandler = (
