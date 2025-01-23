@@ -1,4 +1,97 @@
 import { createChatBtn, createChatWrapper } from './createChatElement';
+import highlightVisible, { HIGHLIGHT_VISIBLE } from './highlightVisible';
+
+type BaseSendPostMsgToIframeType = {
+  popup: HTMLDivElement;
+};
+
+type SendPostMsgToIframeURLChangeType = BaseSendPostMsgToIframeType & {
+  type: 'URL_CHANGE';
+  url: string;
+};
+
+type SendPostMsgToIframeMouseClickType = BaseSendPostMsgToIframeType & {
+  type: 'MOUSE_CLICK';
+  x: number;
+  y: number;
+  tagPath?: string;
+  tagContent?: string;
+};
+
+type SendPostMsgToIframeType =
+  | SendPostMsgToIframeURLChangeType
+  | SendPostMsgToIframeMouseClickType;
+
+export const sendPostMsgToIframe = ({
+  popup,
+  type,
+  ...rest
+}: SendPostMsgToIframeType) => {
+  const iframe = popup.querySelector('iframe');
+  if (iframe) {
+    iframe.contentWindow?.postMessage({ type, value: rest }, '*');
+  }
+};
+
+export const popStateHandler = (loplatNewAiPopup: HTMLDivElement) =>
+  sendPostMsgToIframe({
+    popup: loplatNewAiPopup,
+    type: 'URL_CHANGE',
+    url: window.location.href,
+  });
+
+export const linkMessageHandler = (e: MessageEvent) => {
+  const { data } = e;
+  // data가 객체인지 확인
+  if (typeof data !== 'object' || data === null) {
+    return; // data가 객체가 아닌 경우 처리하지 않음
+  }
+
+  const isHighlightMessage = 'type' in data && data.type === 'highlight';
+  if (!isHighlightMessage) {
+    return;
+  }
+
+  window.ChatWidget.highlightText(`${e.data.value}`);
+};
+
+export const userClickHandler = (
+  e: MouseEvent,
+  loplatNewAiPopup: HTMLDivElement
+) => {
+  const element = e.target;
+  if (!element) {
+    return;
+  }
+
+  const position = { x: e.clientX, y: e.clientY };
+
+  if (!(element instanceof HTMLElement)) {
+    return sendPostMsgToIframe({
+      popup: loplatNewAiPopup,
+      type: 'MOUSE_CLICK',
+      ...position,
+    });
+  }
+
+  const tagName = element.tagName;
+  const tagId = element.id ? `#${element.id}` : '';
+  const tagClasses = element.className
+    ? `.${element.className
+        .split(' ')
+        .filter((className) => className !== HIGHLIGHT_VISIBLE)
+        .join('.')}`
+    : '';
+  const tagPath = `${tagName}${tagId}${tagClasses}`;
+
+  return sendPostMsgToIframe({
+    popup: loplatNewAiPopup,
+    type: 'MOUSE_CLICK',
+    ...position,
+    tagPath,
+    tagContent: element.innerText,
+  });
+};
 
 const init = () => {
   const loplatNewAiBtn = createChatBtn();
@@ -13,24 +106,6 @@ const init = () => {
     loplatNewAiPopup.style.display = !isOpen ? 'block' : 'none';
     window.dispatchEvent(new Event('popstate'));
     isOpen = !isOpen;
-  });
-
-  let isInternalChange = false;
-
-  window.addEventListener('popstate', () => {
-    if (isInternalChange) {
-      isInternalChange = false;
-      return;
-    }
-
-    const currentUrl = window.location.href;
-    const iframe = loplatNewAiPopup.querySelector('iframe');
-    if (iframe) {
-      iframe.contentWindow?.postMessage(
-        { type: 'URL_CHANGE', url: currentUrl },
-        '*'
-      );
-    }
   });
 
   // History API를 사용하는 경우 pushState/replaceState를 감싸는 코드
@@ -48,15 +123,18 @@ const init = () => {
     originalReplaceState.apply(this, args);
   };
 
-  window.addEventListener('message', (e) => {
-    const { data } = e;
-    const isHighlightMessage =
-      'type' in data && data.type === 'highlight' && 'value' in data;
-    if (!isHighlightMessage) {
-      return;
-    }
-    window.ChatWidget.highlightText(`${e.data.value}`);
-  });
+  window.addEventListener('popstate', () => popStateHandler(loplatNewAiPopup));
+  window.addEventListener('message', linkMessageHandler);
+  window.addEventListener('click', (e) =>
+    userClickHandler(e, loplatNewAiPopup)
+  );
+
+  // DOMContentLoaded 여부 확인 및 실행
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', highlightVisible);
+  } else {
+    highlightVisible(); // DOM이 이미 로드된 상태라면 즉시 실행
+  }
 };
 
 export default init;
