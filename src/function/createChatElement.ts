@@ -6,7 +6,8 @@ export const createChatBtn = (id = 'loplat-new-ai-btn') => {
 
 export const createChatWrapper = (
   id = 'loplat-new-ai-popup',
-  iframeURL = 'https://cheery-florentine-ca54ac.netlify.app/'
+  // iframeURL = 'https://cheery-florentine-ca54ac.netlify.app/'
+  iframeURL = 'https://loplat-chatbot-320524274389.asia-northeast3.run.app/ai-agent-nav'
 ) => {
   const wrapper = document.createElement('div');
   wrapper.id = id;
