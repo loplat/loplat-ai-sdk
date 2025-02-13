@@ -1,3 +1,4 @@
+import { DotLottie } from '@lottiefiles/dotlottie-web';
 import { createChatBtn, createChatWrapper } from './createChatElement';
 import highlightVisible, { HIGHLIGHT_VISIBLE } from './highlightVisible';
 
@@ -102,6 +103,16 @@ const init = () => {
 
   document.body.appendChild(loplatNewAiBtn);
   document.body.appendChild(loplatNewAiPopup);
+
+  const canvas = document.querySelector<HTMLCanvasElement>('#iframe-loading');
+  if (canvas) {
+    new DotLottie({
+      canvas,
+      src: 'https://lottie.host/9ff45170-514a-4812-aefc-ded4e03b1bdc/sIkKDTDuJY.lottie',
+      loop: true,
+      autoplay: true,
+    });
+  }
 
   let isOpen = false;
 
