@@ -111,6 +111,10 @@ const init = () => {
       src: 'https://lottie.host/9ff45170-514a-4812-aefc-ded4e03b1bdc/sIkKDTDuJY.lottie',
       loop: true,
       autoplay: true,
+      layout: {
+        fit: 'fit-width',
+        align: [0.5, 0.5],
+      },
     });
   }
 

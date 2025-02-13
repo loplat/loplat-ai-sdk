@@ -19,14 +19,15 @@ export const createChatWrapper = (
 
   const lottie = document.createElement('canvas');
   lottie.id = 'iframe-loading';
+  lottie.style.width = '100%';
+  lottie.style.height = 'auto';
 
   wrapper.appendChild(iframe);
   wrapper.appendChild(lottie);
 
   iframe.onload = () => {
-    // wrapper.className = '';
-    // wrapper.removeChild(lottie);
-    // iframe.style.display = 'block';
+    wrapper.removeChild(lottie);
+    iframe.style.display = 'block';
   };
 
   return wrapper;
