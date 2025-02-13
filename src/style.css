@@ -12,6 +12,8 @@
 #loplat-new-ai-popup {
   display: none;
   position: fixed;
+  justify-content: center;
+  align-items: center;
 
   bottom: 80px;
   right: 20px;
@@ -20,12 +22,6 @@
   background-color: #fff;
   border-radius: 16px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-#loplat-new-ai-popup.loading {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
 }
 
 #loplat-new-ai-popup iframe {

@@ -117,7 +117,7 @@ const init = () => {
   let isOpen = false;
 
   loplatNewAiBtn.addEventListener('click', () => {
-    loplatNewAiPopup.style.display = !isOpen ? 'block' : 'none';
+    loplatNewAiPopup.style.display = !isOpen ? 'flex' : 'none';
     window.dispatchEvent(new Event('popstate'));
     isOpen = !isOpen;
   });

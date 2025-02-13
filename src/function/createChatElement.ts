@@ -11,7 +11,6 @@ export const createChatWrapper = (
 ) => {
   const wrapper = document.createElement('div');
   wrapper.id = id;
-  wrapper.className = 'loading';
 
   const iframe = document.createElement('iframe');
   iframe.className = 'loplat-new-ai';
@@ -25,9 +24,9 @@ export const createChatWrapper = (
   wrapper.appendChild(lottie);
 
   iframe.onload = () => {
-    wrapper.className = '';
-    wrapper.removeChild(lottie);
-    iframe.style.display = 'block';
+    // wrapper.className = '';
+    // wrapper.removeChild(lottie);
+    // iframe.style.display = 'block';
   };
 
   return wrapper;
