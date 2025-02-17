@@ -32,6 +32,8 @@
   height: 28px;
   border-radius: 50%;
   background-image: url('/bot.png');
+  background-size: contain;
+  background-position: center center;
 
   top: 50%;
   transform: translateY(-50%) translateX(0);
