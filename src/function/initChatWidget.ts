@@ -1,18 +1,19 @@
 import { DotLottie } from '@lottiefiles/dotlottie-web';
 import { createChatBtn, createChatWrapper } from './createChatElement';
 import highlightVisible, { HIGHLIGHT_VISIBLE } from './highlightVisible';
+import { CHAT_TOGGLE_BUTTON_ID, CHAT_POPUP_ID, EVENT_TYPE } from './const';
 
 type BaseSendPostMsgToIframeType = {
   popup: HTMLDivElement;
 };
 
 type SendPostMsgToIframeURLChangeType = BaseSendPostMsgToIframeType & {
-  type: 'URL_CHANGE';
+  type: typeof EVENT_TYPE.URL_CHANGE;
   url: string;
 };
 
 type SendPostMsgToIframeMouseClickType = BaseSendPostMsgToIframeType & {
-  type: 'MOUSE_CLICK';
+  type: typeof EVENT_TYPE.MOUSE_CLICK;
   x: number;
   y: number;
   tagPath?: string;
@@ -22,6 +23,29 @@ type SendPostMsgToIframeMouseClickType = BaseSendPostMsgToIframeType & {
 type SendPostMsgToIframeType =
   | SendPostMsgToIframeURLChangeType
   | SendPostMsgToIframeMouseClickType;
+
+let isOpen = false;
+
+const toggleChat = () => {
+  isOpen = !isOpen;
+
+  const loplatNewAiBtn = document.querySelector(`#${CHAT_TOGGLE_BUTTON_ID}`);
+  if (loplatNewAiBtn) {
+    loplatNewAiBtn.classList.toggle('toggled');
+    loplatNewAiBtn.textContent = !isOpen ? '전문가 호출' : '상담중 ✨';
+  }
+
+  const loplatNewAiPopup = document.querySelector<HTMLDivElement>(
+    `#${CHAT_POPUP_ID}`
+  );
+  if (loplatNewAiPopup) {
+    loplatNewAiPopup.style.display = !isOpen ? 'none' : 'flex';
+  }
+
+  if (isOpen) {
+    window.dispatchEvent(new Event('popstate'));
+  }
+};
 
 const sendPostMsgToIframe = ({
   popup,
@@ -37,7 +61,7 @@ const sendPostMsgToIframe = ({
 const popStateHandler = (loplatNewAiPopup: HTMLDivElement) =>
   sendPostMsgToIframe({
     popup: loplatNewAiPopup,
-    type: 'URL_CHANGE',
+    type: EVENT_TYPE.URL_CHANGE,
     url: window.location.href,
   });
 
@@ -54,14 +78,17 @@ const messageEventHandler = (e: MessageEvent) => {
   }
 
   switch (data.type) {
-    case 'HIGHLIGHT':
+    case EVENT_TYPE.HIGHLIGHT:
       window.ChatWidget.highlightText({
         keyword: `${data.value.keyword}`,
         nth: Number(data.value.nth ?? 1),
       });
       break;
-    case 'COPY':
+    case EVENT_TYPE.COPY:
       window.navigator.clipboard.writeText(data.value);
+      break;
+    case EVENT_TYPE.TOGGLE:
+      toggleChat();
       break;
     default:
       return;
@@ -124,15 +151,7 @@ const init = () => {
     });
   }
 
-  let isOpen = false;
-
-  loplatNewAiBtn.addEventListener('click', () => {
-    isOpen = !isOpen;
-    loplatNewAiBtn.classList.toggle('toggled');
-    loplatNewAiPopup.style.display = !isOpen ? 'none' : 'flex';
-    loplatNewAiBtn.textContent = !isOpen ? '전문가 호출' : '상담중 ✨';
-    window.dispatchEvent(new Event('popstate'));
-  });
+  loplatNewAiBtn.addEventListener('click', toggleChat);
 
   // History API를 사용하는 경우 pushState/replaceState를 감싸는 코드
   const originalPushState = history.pushState;
