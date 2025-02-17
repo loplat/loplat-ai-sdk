@@ -23,7 +23,7 @@ type SendPostMsgToIframeType =
   | SendPostMsgToIframeURLChangeType
   | SendPostMsgToIframeMouseClickType;
 
-export const sendPostMsgToIframe = ({
+const sendPostMsgToIframe = ({
   popup,
   type,
   ...rest
@@ -34,35 +34,41 @@ export const sendPostMsgToIframe = ({
   }
 };
 
-export const popStateHandler = (loplatNewAiPopup: HTMLDivElement) =>
+const popStateHandler = (loplatNewAiPopup: HTMLDivElement) =>
   sendPostMsgToIframe({
     popup: loplatNewAiPopup,
     type: 'URL_CHANGE',
     url: window.location.href,
   });
 
-export const linkMessageHandler = (e: MessageEvent) => {
+const messageEventHandler = (e: MessageEvent) => {
   const { data } = e;
   // data가 객체인지 확인
   if (typeof data !== 'object' || data === null) {
     return; // data가 객체가 아닌 경우 처리하지 않음
   }
 
-  const isHighlightMessage = 'type' in data && data.type === 'HIGHLIGHT';
-  if (!isHighlightMessage) {
+  const hasType = 'type' in data;
+  if (!hasType) {
     return;
   }
 
-  window.ChatWidget.highlightText({
-    keyword: `${e.data.value.keyword}`,
-    nth: Number(e.data.value.nth ?? 1),
-  });
+  switch (data.type) {
+    case 'HIGHLIGHT':
+      window.ChatWidget.highlightText({
+        keyword: `${data.value.keyword}`,
+        nth: Number(data.value.nth ?? 1),
+      });
+      break;
+    case 'COPY':
+      window.navigator.clipboard.writeText(data.value);
+      break;
+    default:
+      return;
+  }
 };
 
-export const userClickHandler = (
-  e: MouseEvent,
-  loplatNewAiPopup: HTMLDivElement
-) => {
+const userClickHandler = (e: MouseEvent, loplatNewAiPopup: HTMLDivElement) => {
   const element = e.target;
   if (!element) {
     return;
@@ -142,7 +148,7 @@ const init = () => {
   };
 
   window.addEventListener('popstate', () => popStateHandler(loplatNewAiPopup));
-  window.addEventListener('message', linkMessageHandler);
+  window.addEventListener('message', messageEventHandler);
   window.addEventListener('click', (e) =>
     userClickHandler(e, loplatNewAiPopup)
   );

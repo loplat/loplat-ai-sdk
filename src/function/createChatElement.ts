@@ -1,6 +1,19 @@
 export const createChatBtn = (id = 'loplat-new-ai-btn') => {
   const button = document.createElement('button');
   button.id = id;
+
+  const span = document.createElement('span');
+  span.id = 'toggleText';
+  span.textContent = '전문가 호출';
+
+  const iconWrapper = document.createElement('div');
+  iconWrapper.className = 'icon';
+  const icon = document.createElement('img');
+  icon.src = '/bot.png';
+
+  iconWrapper.appendChild(icon);
+  button.appendChild(span);
+  button.appendChild(iconWrapper);
   return button;
 };
 
@@ -13,9 +26,9 @@ export const createChatWrapper = (
   wrapper.id = id;
 
   const iframe = document.createElement('iframe');
-  iframe.className = 'loplat-new-ai';
-  iframe.style.display = 'none';
   iframe.src = iframeURL;
+  iframe.style.display = 'none';
+  iframe.className = 'loplat-new-ai';
 
   const lottie = document.createElement('canvas');
   lottie.id = 'iframe-loading';
