@@ -2,12 +2,67 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 40px;
-  height: 40px;
-  background-color: #fee500;
-  border-radius: 50%;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  background-color: #1e1e1e;
+  border: none;
+  border-radius: 50px;
+  padding: 6px 12px;
+
+  color: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: right;
+
+  width: 108px;
+  height: 40px;
+  transition: transform 0.4s ease;
 }
+
+#loplat-new-ai-btn::before {
+  content: '';
+  position: absolute;
+  transition: transform 0.4s ease;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-image: url('/bot.png');
+
+  top: 50%;
+  transform: translateY(-50%) translateX(0);
+  left: 6px;
+}
+
+#loplat-new-ai-btn.toggled {
+  justify-content: flex-start;
+}
+
+#loplat-new-ai-btn.toggled::before {
+  transform: translateY(-50%) translateX(68px);
+}
+
+/* .loplat-new-ai-btn-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  right: 10px;
+  transition: transform 0.3s;
+}
+
+.toggled .icon {
+  transform: translateX(-160px);
+} */
 
 #loplat-new-ai-popup {
   display: none;

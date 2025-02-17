@@ -1,19 +1,8 @@
 export const createChatBtn = (id = 'loplat-new-ai-btn') => {
   const button = document.createElement('button');
   button.id = id;
+  button.textContent = '전문가 호출';
 
-  const span = document.createElement('span');
-  span.id = 'toggleText';
-  span.textContent = '전문가 호출';
-
-  const iconWrapper = document.createElement('div');
-  iconWrapper.className = 'icon';
-  const icon = document.createElement('img');
-  icon.src = '/bot.png';
-
-  iconWrapper.appendChild(icon);
-  button.appendChild(span);
-  button.appendChild(iconWrapper);
   return button;
 };
 

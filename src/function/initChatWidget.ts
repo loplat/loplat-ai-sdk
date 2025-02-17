@@ -127,9 +127,11 @@ const init = () => {
   let isOpen = false;
 
   loplatNewAiBtn.addEventListener('click', () => {
-    loplatNewAiPopup.style.display = !isOpen ? 'flex' : 'none';
-    window.dispatchEvent(new Event('popstate'));
     isOpen = !isOpen;
+    loplatNewAiBtn.classList.toggle('toggled');
+    loplatNewAiPopup.style.display = !isOpen ? 'none' : 'flex';
+    loplatNewAiBtn.textContent = !isOpen ? '전문가 호출' : '상담중 ✨';
+    window.dispatchEvent(new Event('popstate'));
   });
 
   // History API를 사용하는 경우 pushState/replaceState를 감싸는 코드
