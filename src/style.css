@@ -30,7 +30,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background-image: url('https://cdn.jsdelivr.net/gh/nani6765/toggle-chatbot@main/public/ai_bot.png');
+  background-image: url('https://cdn.jsdelivr.net/gh/loplat/loplat-ai-sdk@main/public/ai_bot.png');
   background-size: contain;
   background-position: center center;
 
@@ -46,24 +46,6 @@
 #loplat-new-ai-btn.toggled::before {
   transform: translateY(-50%) translateX(68px);
 }
-
-/* .loplat-new-ai-btn-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-
-  right: 10px;
-  transition: transform 0.3s;
-}
-
-.toggled .icon {
-  transform: translateX(-160px);
-} */
 
 #loplat-new-ai-popup {
   display: none;
