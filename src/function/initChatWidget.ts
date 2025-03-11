@@ -24,34 +24,36 @@ type SendPostMsgToIframeType =
   | SendPostMsgToIframeURLChangeType
   | SendPostMsgToIframeMouseClickType;
 
+let timer: null | NodeJS.Timeout = null;
 let isOpen = false;
 
 const toggleChat = () => {
-  isOpen = !isOpen;
-
   const loplatNewAiBtn = document.querySelector(`#${CHAT_TOGGLE_BUTTON_ID}`);
-  if (loplatNewAiBtn) {
-    loplatNewAiBtn.classList.toggle('toggled');
-    loplatNewAiBtn.textContent = !isOpen ? '전문가 호출' : '상담중 ✨';
-  }
-
   const loplatNewAiPopup = document.querySelector<HTMLDivElement>(
     `#${CHAT_POPUP_ID}`
   );
-  if (loplatNewAiPopup) {
-    if (isOpen) {
-      loplatNewAiPopup.classList.remove('disappear');
-      loplatNewAiPopup.classList.add('appear');
-    } else {
-      loplatNewAiPopup.classList.add('disappear');
-      setTimeout(function () {
-        loplatNewAiPopup.classList.remove('appear');
-      }, 1001);
-    }
+
+  if (!(loplatNewAiPopup && loplatNewAiBtn)) {
+    return;
   }
 
+  isOpen = !isOpen;
+  if (timer) {
+    clearTimeout(timer);
+  }
+
+  loplatNewAiBtn.classList.toggle('toggled');
+  loplatNewAiBtn.textContent = !isOpen ? '전문가 호출' : '상담중 ✨';
+
   if (isOpen) {
+    loplatNewAiPopup.classList.remove('disappear');
+    loplatNewAiPopup.classList.add('appear');
     window.dispatchEvent(new Event('popstate'));
+  } else {
+    loplatNewAiPopup.classList.add('disappear');
+    timer = setTimeout(function () {
+      loplatNewAiPopup.classList.remove('appear');
+    }, 1001);
   }
 };
 
