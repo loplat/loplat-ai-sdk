@@ -140,12 +140,15 @@ const userClickHandler = (e: MouseEvent, loplatNewAiPopup: HTMLDivElement) => {
   });
 };
 
-const init = () => {
-  const loplatNewAiBtn = createChatBtn();
-  const loplatNewAiPopup = createChatWrapper();
+export const init = () => {
+  const loplatNewAiBtn = document.querySelector(`#${CHAT_TOGGLE_BUTTON_ID}`);
+  const loplatNewAiPopup = document.querySelector<HTMLDivElement>(
+    `#${CHAT_POPUP_ID}`
+  );
 
-  document.body.appendChild(loplatNewAiBtn);
-  document.body.appendChild(loplatNewAiPopup);
+  if (!(loplatNewAiPopup && loplatNewAiBtn)) {
+    return;
+  }
 
   const canvas = document.querySelector<HTMLCanvasElement>('#iframe-loading');
   if (canvas) {
@@ -192,4 +195,12 @@ const init = () => {
   }
 };
 
-export default init;
+export const submitElement = () => {
+  const loplatNewAiBtn = createChatBtn();
+  const loplatNewAiPopup = createChatWrapper();
+
+  document.body.appendChild(loplatNewAiBtn);
+  document.body.appendChild(loplatNewAiPopup);
+
+  init();
+};

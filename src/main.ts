@@ -1,4 +1,4 @@
-import init from './function/initChatWidget';
+import { submitElement, init } from './function/initChatWidget';
 import highlightText from './function/highlightText';
 
 import './style.css';
@@ -10,5 +10,5 @@ import './style.css';
     highlightText,
   };
 
-  init();
+  submitElement();
 })();
