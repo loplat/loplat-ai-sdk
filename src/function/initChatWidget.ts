@@ -42,6 +42,7 @@ const toggleChat = () => {
     clearTimeout(timer);
   }
 
+  loplatNewAiBtn.classList.remove('pulse');
   loplatNewAiBtn.classList.toggle('toggled');
   loplatNewAiBtn.textContent = !isOpen ? '전문가 호출' : '상담중 ✨';
 

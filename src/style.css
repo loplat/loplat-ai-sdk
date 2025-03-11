@@ -1,3 +1,15 @@
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 #loplat-new-ai-btn {
   position: fixed;
   bottom: 20px;
@@ -20,6 +32,10 @@
   width: 108px;
   height: 40px;
   transition: transform 0.4s ease;
+}
+
+.pulse {
+  animation: pulse 3s ease-out infinite;
 }
 
 #loplat-new-ai-btn::before {

@@ -8,6 +8,7 @@ export const createChatBtn = (id = CHAT_TOGGLE_BUTTON_ID) => {
   const button = document.createElement('button');
   button.id = id;
   button.textContent = '전문가 호출';
+  button.className = 'pulse';
 
   return button;
 };
