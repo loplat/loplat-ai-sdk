@@ -18,6 +18,7 @@ export const createChatWrapper = (
   // iframeURL = 'http://localhost:3000/ai-agent-nav'
 ) => {
   const wrapper = document.createElement('div');
+  wrapper.className = 'hidden';
   wrapper.id = id;
 
   const iframe = document.createElement('iframe');

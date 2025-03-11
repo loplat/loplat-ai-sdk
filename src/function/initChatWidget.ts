@@ -39,7 +39,15 @@ const toggleChat = () => {
     `#${CHAT_POPUP_ID}`
   );
   if (loplatNewAiPopup) {
-    loplatNewAiPopup.style.display = !isOpen ? 'none' : 'flex';
+    if (isOpen) {
+      loplatNewAiPopup.classList.remove('disappear');
+      loplatNewAiPopup.classList.add('appear');
+    } else {
+      loplatNewAiPopup.classList.add('disappear');
+      setTimeout(function () {
+        loplatNewAiPopup.classList.remove('appear');
+      }, 1001);
+    }
   }
 
   if (isOpen) {
