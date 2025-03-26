@@ -132,8 +132,10 @@ const toggleChat = () => {
   if (isOpen) {
     loplatNewAiPopup.classList.remove("disappear");
     loplatNewAiPopup.classList.add("appear");
+    loplatNewAiPopup.style.display = "block";
     window.dispatchEvent(new Event("popstate"));
   } else {
+    loplatNewAiPopup.style.display = "none";
     loplatNewAiPopup.classList.add("disappear");
     timer = setTimeout(function () {
       loplatNewAiPopup.classList.remove("appear");
