@@ -32,7 +32,7 @@ type SendPostMsgToIframeType =
   | SendPostMsgToIframeMouseClickType
   | SendPostMsgToIframeGetDomType;
 
-let timer: null | NodeJS.Timeout = null;
+let timer: null | ReturnType<typeof setTimeout> = null;
 let isOpen = false;
 
 /**
