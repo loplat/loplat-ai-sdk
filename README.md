@@ -11,11 +11,12 @@ loplat-new-ai를 iframe으로 호출하고 있으며 Vanilla JS로 구성됨.
   - https://cdn.jsdelivr.net/gh/loplat/loplat-ai-sdk@main/dist/chat-widget.iife.js
   - https://cdn.jsdelivr.net/gh/loplat/loplat-ai-sdk@main/dist/chat-widget.css
   - https://cdn.jsdelivr.net/gh/loplat/loplat-ai-sdk@main/dist/ai_bot.png
-  cf) jsdelivr외에 적절한 방법을 찾지 못함.
+    cf) jsdelivr외에 적절한 방법을 찾지 못함.
+
 ```
   <script
     dangerouslySetInnerHTML={{
-      __html: `  
+      __html: `
         (function () {
           var w = window;
           function load() {
@@ -46,6 +47,7 @@ loplat-new-ai를 iframe으로 호출하고 있으며 Vanilla JS로 구성됨.
 ```
 
 ## Project Description
+
 - CDN으로 해당 프로젝트의 JS파일을 불러오게 되면 window 객체에 "ChatWidget"이란 key로 "init"과 "highlightText"라는 이름의 함수들을 등록함
   - 해당 "ChatWidget"이라는 key이름을 변경하고 싶다면 아래 두파일 수정
     - {root}/src/main.ts
@@ -58,7 +60,7 @@ loplat-new-ai를 iframe으로 호출하고 있으며 Vanilla JS로 구성됨.
   - 클라이언트의 URL 변경
   - "message" event listener
     - "HIGHLIGHT", "COPY", "TOGGLE" 등의 이벤트 관리
-    - "HIGHLIGHT" : AI-CHAT에서 클라이언트의 특정 text에 강조 표시를 하고 싶을 때 
+    - "HIGHLIGHT" : AI-CHAT에서 클라이언트의 특정 text에 강조 표시를 하고 싶을 때
     - "COPY" : AI-CHAT의 답변 내용을 유저가 복사하고자 할 때
     - "TOGGLE" : AI-CHAT의 닫기 버튼을 유저가 클릭했을 때
   - "click" event listener
