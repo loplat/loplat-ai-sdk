@@ -24,7 +24,6 @@ export const createChatWrapper = (
 
   const iframe = document.createElement("iframe");
   iframe.src = iframeURL;
-  iframe.style.display = "none";
   iframe.className = CHAT_IFRAME_CLASSNAME;
 
   const lottie = document.createElement("canvas");
