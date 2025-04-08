@@ -203,10 +203,9 @@ const messageEventHandler = (
     case EVENT_TYPE.TOGGLE:
       toggleChat();
       break;
-    case EVENT_TYPE.GET_DOM: {
+    case EVENT_TYPE.GET_DOM:
       postDomHandler(loplatNewAiPopup);
       break;
-    }
     default:
       return;
   }
