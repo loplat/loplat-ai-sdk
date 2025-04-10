@@ -104,6 +104,7 @@
 
   bottom: 80px;
   right: 20px;
+  max-width: calc(100vw - 40px);
   width: 360px;
   height: 480px;
   background-color: #fff;
