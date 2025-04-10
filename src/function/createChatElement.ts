@@ -15,8 +15,8 @@ export const createChatBtn = (id = CHAT_TOGGLE_BUTTON_ID) => {
 
 export const createChatWrapper = (
   id = CHAT_POPUP_ID,
-  // iframeURL = "https://loplat-chatbot-320524274389.asia-northeast3.run.app/ai-agent-nav",
-  iframeURL = "https://loplat-chatbot-staging-320524274389.asia-northeast3.run.app/ai-agent-nav",
+  iframeURL = "https://loplat-chatbot-320524274389.asia-northeast3.run.app/ai-agent-nav",
+  // iframeURL = "https://loplat-chatbot-staging-320524274389.asia-northeast3.run.app/ai-agent-nav",
   // iframeURL = "http://localhost:3000/ai-agent-nav"
 ) => {
   const wrapper = document.createElement("div");
